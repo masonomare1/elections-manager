@@ -1,4 +1,5 @@
-from elections.us_states import postal_abbreviations
+from elections.search.us_states import postal_abbreviations
+
 
 def test_postal_abbreviations():
     # confirm that there are 61 postal abbreviations in us_states.py
