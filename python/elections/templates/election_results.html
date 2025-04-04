@@ -1,1 +1,35 @@
-[TODO Placeholder results page]
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <h1>Upcoming Elections</h1>
+    {% if elections %}
+        <ul>
+            {% for election in elections %}
+                <li>
+                    <strong>Description:</strong> {{ election.description }}<br>
+                    <strong>Date:</strong> {{ election.date }}<br>
+                    <strong>Type:</strong> {{ election.type }}<br>
+                    <strong>Website:</strong> <a href="{{ election.website }}">{{ election.website }}</a><br>
+                    {% for district in election['district-divisions'] %}
+                        <strong>District Division OCD ID:</strong> {{ district['ocd-id'] }}<br>
+                        <strong>Voter Registration Authority Level:</strong> {{ district['voter-registration-authority-level'] }}<br>
+                        <strong>Election Authority Level:</strong> {{ district['election-authority-level'] }}<br>
+                        {% for voting_method in district['voting-methods'] %}
+                            <strong>Voting Method Type:</strong> {{ voting_method.type }}<br>
+                            <strong>Excuse Required:</strong> {{ voting_method['excuse-required'] }}<br>
+                            <!-- Add more relevant information here -->
+                        {% endfor %}
+                        {% for voter_registration_method in district['voter-registration-methods'] %}
+                            <strong>Voter Registration Method Type:</strong> {{ voter_registration_method.type }}<br>
+                            <!-- Add more relevant information here -->
+                        {% endfor %}
+                    {% endfor %}
+                    <hr>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No upcoming elections found.</p>
+    {% endif %}
+{% endblock content %}
