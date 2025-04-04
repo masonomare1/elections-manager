@@ -1,66 +1,66 @@
-# Democracy Works Practical: Upcoming Elections
+# Elections Finder Web Application
 
-A [Flask](https://flask.palletsprojects.com/en/2.0.x/) web application that
-serves as a starting point for the Democracy Works hiring practical.
+The Elections Finder is a web application that allows users to find upcoming elections based on their address. The application uses the Democracy Works Elections API to fetch election data for the provided address.
 
-## Installation
+## Getting Started
 
-### Requirements
+To run the Elections Finder web application, follow these steps:
 
-- Python 3.6 or higher. If you don't have it, [follow the instructions for your
-  platform](https://realpython.com/installing-python/).
+1. Clone the repository to your local machine.
+2. Install the required dependencies using `pip install -r requirements.txt`.
+3. Set up the Flask application by exporting the necessary environment variables or using a `.env` file.
+4. Start the application by running `flask --app autoapp.py run`.
 
-### Dependencies
+The web application will be accessible at `http://localhost:5000`.
 
-To install the dependencies, run the following commands:
+## How it Works
 
-```sh
-## Create a virtual Python environment in the `.venv` directory
-python3 -m venv .venv
+When a user visits the web application, they will be presented with an address form. Upon submitting the form, the application will translate the address into Open Civic Data division identifiers (OCD IDs) and query the Democracy Works Elections API for upcoming elections for those OCD IDs. The API will return election data, which will be displayed to the user.
 
-## Ensure you have pip installed. For help see:
-## https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/
-python3 -m pip install --user --upgrade pip
+## API Endpoints
 
-## Enter the virtual environment: you'll need to do this in your environment to
-## run commands at command line.
-source .venv/bin/activate
+### Search Endpoint
 
-## Install the requirements
-pip install -r requirements.txt
+- **URL:** `/search`
+- **Method:** POST
+- **Parameters:**
+  - `street` (string): The street address.
+  - `street_2` (string, optional): Additional street address.
+  - `city` (string): The city.
+  - `state` (string): The state abbreviation (e.g., "NY" for New York).
+  - `zip` (string): The ZIP code.
+- **Response:** Returns the upcoming elections for the provided address.
+
+## Project Structure
+
+The project follows the following directory structure:
+```
+project-root/
+|-- app.py # Flask application entry point
+|-- forms.py # Flask forms definition
+|-- templates/
+| |-- address_form.html # HTML template for the address form
+| |-- election_results.html # HTML template to display upcoming elections
+|-- static/ # Directory for static assets (CSS, JS, etc.)
+|-- tests/ # Directory containing test files
+|-- README.md # Project documentation
+|-- requirements.txt # Dependencies file
 ```
 
-When you are done with the virtual environment, use `deactivate` to exit it and
-return to your normal shell, or quit your terminal program.
 
-## Usage
+## Dependencies & New Tools Used
 
-### Running
+The Elections Finder web application uses the following main dependencies:
 
-To run the application, use the following commands:
+- Flask: A micro web framework for Python.
+- Requests: A library for making HTTP requests.
+- WebTest: A library for testing WSGI applications.
+- Jinja2: A templating engine for Python.
 
-```sh
-## OPTIONAL: If you haven't done this yet
-source .venv/bin/activate
+## Testing
 
-export FLASK_APP=elections
-export FLASK_ENV=development
-flask run
-```
+The project includes unit tests to ensure the functionality of the web application. To run the tests, use the following command:
 
-### Tests
-
-To run the test suite, use the following command:
-
-```
-## OPTIONAL: If you haven't done this yet
-source .venv/bin/activate
-
+```bash
 pytest
 ```
-
-## Troubleshooting
-
-If you need any help or notice something wrong with these instructions, let your
-contact at Democracy Works know! Help getting started is not part of the
-evaluation and you reaching out will not impact your score.
